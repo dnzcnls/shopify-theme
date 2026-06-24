@@ -1,0 +1,38 @@
+<div class="auth-wrap">
+  <div class="eyebrow-row"><span class="h-rule"></span><span class="h-eyebrow">Account</span><span class="h-rule"></span></div>
+  <h1>{{ 'customer.login.title' | t }}</h1>
+  <p class="lead">{{ 'customer.login.subtitle' | t }}</p>
+
+  {% form 'customer_login', class: 'auth-form' %}
+    {{ form.errors | default_errors }}
+    <div>
+      <label>{{ 'customer.login.email' | t }}</label>
+      <input type="email" name="customer[email]" required autofocus>
+    </div>
+    <div>
+      <label>{{ 'customer.login.password' | t }}</label>
+      <input type="password" name="customer[password]" required>
+    </div>
+    <div class="auth-meta">
+      <a href="/account/login#recover" id="recover">{{ 'customer.login.forgot' | t }}</a>
+    </div>
+    <button type="submit" class="btn">{{ 'customer.login.submit' | t }}</button>
+  {% endform %}
+
+  <div class="auth-alt">
+    {{ 'customer.login.new_customer' | t }} <a href="{{ routes.account_register_url }}" style="border-bottom:1px solid">{{ 'customer.login.create_account' | t }}</a>
+  </div>
+
+  <div id="recover" style="margin-top:64px">
+    <h2 style="font-family:var(--f-display);font-size:28px;font-weight:400;text-align:center">{{ 'customer.recover.title' | t }}</h2>
+    <p class="lead">{{ 'customer.recover.subtitle' | t }}</p>
+    {% form 'recover_customer_password', class: 'auth-form' %}
+      {{ form.errors | default_errors }}
+      {% if form.posted_successfully? %}
+        <p>We've sent you an email with a link to update your password.</p>
+      {% endif %}
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit" class="btn btn--ghost">{{ 'customer.recover.submit' | t }}</button>
+    {% endform %}
+  </div>
+</div>

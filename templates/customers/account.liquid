@@ -1,0 +1,37 @@
+<div class="container" style="padding:80px 0">
+  <div class="text-center">
+    <div class="eyebrow-row"><span class="h-rule"></span><span class="h-eyebrow">Account</span><span class="h-rule"></span></div>
+    <h1 class="h-section">Welcome, {{ customer.first_name }}</h1>
+    <p style="margin-top:16px"><a href="{{ routes.account_logout_url }}" style="border-bottom:1px solid">Sign out</a></p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:64px;margin-top:64px">
+    <div>
+      <h2 style="font-family:var(--f-display);font-size:28px;font-weight:400">Order history</h2>
+      {%- if customer.orders.size > 0 -%}
+        <table style="width:100%;border-collapse:collapse;margin-top:24px">
+          <thead><tr style="text-align:left;border-bottom:1px solid var(--c-line)">
+            <th style="padding:12px 0">Order</th><th>Date</th><th>Total</th><th>Status</th>
+          </tr></thead>
+          <tbody>
+            {%- for order in customer.orders -%}
+              <tr style="border-bottom:1px solid var(--c-line)">
+                <td style="padding:16px 0"><a href="{{ order.customer_url }}" style="border-bottom:1px solid">{{ order.name }}</a></td>
+                <td>{{ order.created_at | date: '%b %d, %Y' }}</td>
+                <td>{{ order.total_price | money }}</td>
+                <td>{{ order.financial_status }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- else -%}
+        <p style="color:var(--c-muted);margin-top:16px">You haven't placed any orders yet.</p>
+      {%- endif -%}
+    </div>
+    <aside>
+      <h2 style="font-family:var(--f-display);font-size:28px;font-weight:400">Account details</h2>
+      <p style="margin-top:16px">{{ customer.default_address.name }}<br>{{ customer.default_address | format_address }}</p>
+      <a href="{{ routes.account_addresses_url }}" style="border-bottom:1px solid">View addresses ({{ customer.addresses_count }})</a>
+    </aside>
+  </div>
+</div>

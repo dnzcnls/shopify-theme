@@ -1,0 +1,48 @@
+<section class="contact section">
+  <div class="container">
+    <div class="contact__grid">
+      <div>
+        <div class="eyebrow-row" style="justify-content:flex-start">
+          <span class="h-eyebrow">{{ section.settings.eyebrow }}</span>
+          <span class="h-rule"></span>
+        </div>
+        <h2 class="h-section">{{ section.settings.title }}</h2>
+        <div class="contact__info" style="margin-top:32px">
+          <p>{{ section.settings.intro }}</p>
+          <p style="margin-top:32px">
+            <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a><br>
+            {{ section.settings.address }}
+          </p>
+        </div>
+      </div>
+      <div>
+        {% form 'contact' %}
+          {%- if form.posted_successfully? -%}
+            <p style="color:#fff">Thank you. Our client services team will respond shortly.</p>
+          {%- endif -%}
+          <div class="contact__form">
+            <input type="text" name="contact[name]" placeholder="Name" required>
+            <input type="email" name="contact[email]" placeholder="Email" required>
+            <input type="text" name="contact[subject]" placeholder="Subject">
+            <textarea name="contact[body]" placeholder="Message" rows="5" required></textarea>
+            <button type="submit" class="btn btn--light" style="justify-self:start">Send message</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Client Services" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Speak with the maison" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Our private client team is available to assist with bespoke orders, sizing, and atelier appointments." },
+    { "type": "text", "id": "email", "label": "Email", "default": "concierge@maison.com" },
+    { "type": "text", "id": "address", "label": "Address", "default": "18 Rue Saint-Honoré · 75001 Paris" }
+  ],
+  "presets": [{ "name": "Contact" }]
+}
+{% endschema %}

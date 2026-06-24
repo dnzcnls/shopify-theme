@@ -1,0 +1,50 @@
+<section class="reviews section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row">
+        <span class="h-rule"></span>
+        <span class="h-eyebrow">{{ section.settings.eyebrow }}</span>
+        <span class="h-rule"></span>
+      </div>
+      <h2 class="h-section">{{ section.settings.title }}</h2>
+    </div>
+    <div class="reviews__grid">
+      {%- for block in section.blocks -%}
+        <article class="review" {{ block.shopify_attributes }}>
+          <p class="review__quote">{{ block.settings.quote }}</p>
+          <div class="review__author">{{ block.settings.author }}</div>
+          <div class="review__role">{{ block.settings.role }}</div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Press & Reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In the press" },
+    { "type": "text", "id": "title", "label": "Title", "default": "What the world is saying" }
+  ],
+  "blocks": [
+    {
+      "type": "review", "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Each piece feels like an heirloom in the making." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Vogue" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Editorial Feature" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{
+    "name": "Press & Reviews",
+    "blocks": [
+      { "type": "review", "settings": { "quote": "Each piece feels like an heirloom in the making.", "author": "Vogue", "role": "Editorial Feature" }},
+      { "type": "review", "settings": { "quote": "A quiet rebellion against the loudness of modern fashion.", "author": "Harper's Bazaar", "role": "Style Review" }},
+      { "type": "review", "settings": { "quote": "The maison's tailoring is uncompromising and rare.", "author": "Financial Times", "role": "How to Spend It" }}
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+<section class="section">
+  <div class="container">
+    <div class="process">
+      <div>
+        <div class="eyebrow-row" style="justify-content:flex-start">
+          <span class="h-eyebrow">{{ section.settings.eyebrow }}</span>
+          <span class="h-rule"></span>
+        </div>
+        <h2 class="h-section" style="margin-bottom:40px">{{ section.settings.title }}</h2>
+        <div class="process__steps">
+          {%- for block in section.blocks -%}
+            <div class="process__step" {{ block.shopify_attributes }}>
+              <div class="process__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+              <div>
+                <h3 class="process__title">{{ block.settings.title }}</h3>
+                <p class="process__desc">{{ block.settings.text }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="process__img">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'lookbook-2.jpg' | asset_url }}" alt="">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Process",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Savoir-faire" },
+    { "type": "text", "id": "title", "label": "Title", "default": "The art of the atelier" }
+  ],
+  "blocks": [
+    {
+      "type": "step", "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Sourcing" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Materials selected from the world's most exacting houses." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{
+    "name": "Process",
+    "blocks": [
+      { "type": "step", "settings": { "title": "Sourcing", "text": "Rare materials selected from the world's most exacting houses." }},
+      { "type": "step", "settings": { "title": "Drafting", "text": "Each silhouette is drawn, draped, and refined by hand." }},
+      { "type": "step", "settings": { "title": "Atelier", "text": "Finished by master tailors across our European ateliers." }},
+      { "type": "step", "settings": { "title": "Delivery", "text": "Hand-wrapped and dispatched within 48 hours, worldwide." }}
+    ]
+  }]
+}
+{% endschema %}

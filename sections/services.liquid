@@ -1,0 +1,56 @@
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row">
+        <span class="h-rule"></span>
+        <span class="h-eyebrow">{{ section.settings.eyebrow }}</span>
+        <span class="h-rule"></span>
+      </div>
+      <h2 class="h-section">{{ section.settings.title }}</h2>
+    </div>
+  </div>
+  <div class="services">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link }}" class="service" {{ block.shopify_attributes }}>
+        <div class="service__img">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+          {%- else -%}
+            <img src="{{ 'lookbook-3.jpg' | asset_url }}" alt="">
+          {%- endif -%}
+        </div>
+        <div class="service__caption">
+          <h3 class="service__title">{{ block.settings.title }}</h3>
+          <span class="service__link">{{ block.settings.cta | default: 'Discover' }}</span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categories",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Edit" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Categories" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Women" },
+        { "type": "text", "id": "cta", "label": "CTA", "default": "Discover" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{
+    "name": "Categories",
+    "blocks": [{ "type": "category" }, { "type": "category" }, { "type": "category" }]
+  }]
+}
+{% endschema %}

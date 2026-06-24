@@ -1,0 +1,60 @@
+{
+  "general": {
+    "search": { "placeholder": "Search the maison", "submit": "Search" },
+    "newsletter": { "placeholder": "Your email", "submit": "Subscribe" },
+    "pagination": { "previous": "Previous", "next": "Next" }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "cart": "Cart",
+    "account": "Account",
+    "menu": "Menu"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to bag",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "size": "Size"
+    }
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "Your bag is empty.",
+    "continue_shopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "shipping": "Calculated at checkout",
+    "total": "Total",
+    "checkout": "Proceed to checkout",
+    "remove": "Remove"
+  },
+  "customer": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back to the maison.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgot": "Forgot your password?",
+      "new_customer": "New to the maison?",
+      "create_account": "Create an account"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Join the Maison world.",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create account",
+      "have_account": "Already have an account?",
+      "sign_in": "Sign in"
+    },
+    "recover": {
+      "title": "Reset password",
+      "subtitle": "We will send you an email to reset your password.",
+      "submit": "Submit"
+    }
+  }
+}

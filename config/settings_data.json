@@ -1,0 +1,16 @@
+{
+  "current": {
+    "brand_name": "MAISON",
+    "color_bg": "#ffffff",
+    "color_ink": "#000000",
+    "color_cream": "#f6f5f1",
+    "social_instagram": "https://instagram.com",
+    "social_pinterest": "https://pinterest.com",
+    "social_tiktok": "https://tiktok.com"
+  },
+  "presets": {
+    "Default": {
+      "brand_name": "MAISON"
+    }
+  }
+}

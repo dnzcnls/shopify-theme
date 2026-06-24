@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="product">
+    <div class="product__gallery">
+      {%- for image in product.images -%}
+        {{ image | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+      {%- else -%}
+        <img src="{{ 'lookbook-1.jpg' | asset_url }}" alt="{{ product.title }}">
+      {%- endfor -%}
+    </div>
+    <aside class="product__info">
+      <span class="h-eyebrow">{{ product.type | default: 'Maison' }}</span>
+      <h1 class="product__title">{{ product.title }}</h1>
+      <div class="product__price">{{ product.price | money }}</div>
+
+      {%- if product.description != blank -%}
+        <div class="product__desc rte">{{ product.description }}</div>
+      {%- endif -%}
+
+      {% form 'product', product, class: 'product__form' %}
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div>
+              <label class="h-eyebrow" style="display:block;margin-bottom:8px">{{ option.name }}</label>
+              <select name="options[{{ option.name }}]" class="product__select">
+                {%- for value in option.values -%}
+                  <option value="{{ value }}">{{ value }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button type="submit" class="btn" {% unless product.available %}disabled{% endunless %}>
+          {%- if product.available -%}Add to bag{%- else -%}Sold out{%- endif -%}
+        </button>
+      {% endform %}
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<section class="section--tight">
+  <div class="container">
+    <div class="stats">
+      {%- for block in section.blocks -%}
+        <div class="stat" {{ block.shopify_attributes }}>
+          <div class="stat__num">{{ block.settings.number }}</div>
+          <div class="stat__label">{{ block.settings.label }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stats",
+  "blocks": [
+    {
+      "type": "stat", "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "37" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Years of craft" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{
+    "name": "Stats",
+    "blocks": [
+      { "type": "stat", "settings": { "number": "1987", "label": "Founded" } },
+      { "type": "stat", "settings": { "number": "12", "label": "Ateliers" } },
+      { "type": "stat", "settings": { "number": "84", "label": "Countries" } },
+      { "type": "stat", "settings": { "number": "100%", "label": "Hand finished" } }
+    ]
+  }]
+}
+{% endschema %}

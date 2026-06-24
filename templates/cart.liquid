@@ -1,0 +1,47 @@
+<div class="container">
+  <div style="text-align:center;padding:48px 0 0">
+    <div class="eyebrow-row"><span class="h-rule"></span><span class="h-eyebrow">Your bag</span><span class="h-rule"></span></div>
+    <h1 class="h-section">{{ 'cart.title' | t }}</h1>
+  </div>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="text-center" style="padding:80px 0">
+      <p style="color:var(--c-muted)">{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn" style="margin-top:24px">{{ 'cart.continue_shopping' | t }}</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="cart-wrap">
+      <div>
+        {%- for item in cart.items -%}
+          <div class="cart-item">
+            <a href="{{ item.url }}">
+              {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy' }}{%- endif -%}
+            </a>
+            <div>
+              <h3 class="cart-item__title">{{ item.product.title }}</h3>
+              {%- unless item.product.has_only_default_variant -%}
+                <div class="cart-item__variant">{{ item.variant.title }}</div>
+              {%- endunless -%}
+              <div class="cart-item__qty">
+                <button type="button" onclick="this.nextElementSibling.stepDown();this.form.submit();">−</button>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+                <button type="button" onclick="this.previousElementSibling.stepUp();this.form.submit();">+</button>
+              </div>
+              <div style="margin-top:8px"><a href="{{ item.url_to_remove }}" style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid">{{ 'cart.remove' | t }}</a></div>
+            </div>
+            <div style="font-size:14px">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <aside class="cart-summary">
+        <h3>Order summary</h3>
+        <div class="cart-summary__row"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></div>
+        <div class="cart-summary__row"><span>Shipping</span><span>{{ 'cart.shipping' | t }}</span></div>
+        <div class="cart-summary__row cart-summary__row--total"><span>{{ 'cart.total' | t }}</span><span>{{ cart.total_price | money }}</span></div>
+        <button type="submit" name="checkout" class="btn">{{ 'cart.checkout' | t }}</button>
+        <a href="{{ routes.all_products_collection_url }}" style="display:block;text-align:center;margin-top:20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase">{{ 'cart.continue_shopping' | t }}</a>
+      </aside>
+    </form>
+  {%- endif -%}
+</div>

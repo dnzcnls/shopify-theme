@@ -1,0 +1,62 @@
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row">
+        <span class="h-rule"></span>
+        <span class="h-eyebrow">{{ section.settings.eyebrow }}</span>
+        <span class="h-rule"></span>
+      </div>
+      <h2 class="h-section">{{ section.settings.title }}</h2>
+    </div>
+    <div class="gallery">
+      {%- for block in section.blocks -%}
+        <div class="gallery__item {{ block.settings.size }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy' }}
+          {%- else -%}
+            {%- assign fallback = forloop.index | modulo: 4 | plus: 1 -%}
+            <img src="{{ 'lookbook-' | append: fallback | append: '.jpg' | asset_url }}" alt="">
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Gallery",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Lookbook" },
+    { "type": "text", "id": "title", "label": "Title", "default": "An editorial study" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "select", "id": "size", "label": "Size",
+          "options": [
+            { "value": "g-tall", "label": "Tall (1/3)" },
+            { "value": "g-wide", "label": "Wide (2/3)" },
+            { "value": "g-half", "label": "Half (1/2)" }
+          ],
+          "default": "g-tall"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{
+    "name": "Editorial Gallery",
+    "blocks": [
+      { "type": "image", "settings": { "size": "g-tall" } },
+      { "type": "image", "settings": { "size": "g-wide" } },
+      { "type": "image", "settings": { "size": "g-half" } },
+      { "type": "image", "settings": { "size": "g-half" } }
+    ]
+  }]
+}
+{% endschema %}

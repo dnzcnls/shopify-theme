@@ -1,0 +1,58 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <div class="site-footer__brand">{{ settings.brand_name | default: shop.name }}</div>
+        <p style="margin-top:16px;color:rgba(255,255,255,.6);max-width:380px">
+          {{ section.settings.tagline }}
+        </p>
+        <form action="/contact#newsletter" method="post" class="site-footer__newsletter">
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="Your email" required>
+          <button type="submit" class="btn--link" style="color:#fff;border-color:#fff;background:transparent">Join</button>
+        </form>
+      </div>
+      <div>
+        <h4>Maison</h4>
+        <ul>
+          <li><a href="/pages/about">About</a></li>
+          <li><a href="/pages/journal">Journal</a></li>
+          <li><a href="/pages/sustainability">Sustainability</a></li>
+          <li><a href="/pages/careers">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Client Services</h4>
+        <ul>
+          <li><a href="/pages/contact">Contact</a></li>
+          <li><a href="/pages/shipping">Shipping</a></li>
+          <li><a href="/pages/returns">Returns</a></li>
+          <li><a href="/pages/care">Product care</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          {%- if settings.social_instagram != blank -%}<li><a href="{{ settings.social_instagram }}">Instagram</a></li>{%- endif -%}
+          {%- if settings.social_pinterest != blank -%}<li><a href="{{ settings.social_pinterest }}">Pinterest</a></li>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<li><a href="{{ settings.social_tiktok }}">TikTok</a></li>{%- endif -%}
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+      <span>{{ section.settings.legal }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "An atelier of quiet luxury — crafted in Europe, delivered worldwide." },
+    { "type": "text", "id": "legal", "label": "Legal line", "default": "Privacy · Terms · Cookies" }
+  ]
+}
+{% endschema %}
